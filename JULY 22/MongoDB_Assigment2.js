@@ -142,3 +142,225 @@ db.watch_history.insertMany([
     watch_time: 90
   }
 ]);
+
+
+//basic 
+//1 Find all movies with duration > 100 minutes.
+db.watch_history.find({ watch_time : { $gt :100}})
+
+//2. List users from 'India'
+db.users.find({country : "India"})
+
+// 3. Get all movies released after 2020
+db.movies.find({release_year : {$gt : 2020}})
+
+// Intermediate:
+// 4. Show full watch history: user name, movie title, watch time.
+db.watch_history.aggregate([
+  {
+    $lookup: {
+      from: "users",
+      localField: "user_id",
+      foreignField: "user_id",
+      as: "user"
+    }
+  },
+  {
+    $lookup: {
+      from: "movies",
+      localField: "movie_id",
+      foreignField: "movie_id",
+      as: "movie"
+    }
+  },
+  {
+    $project: {
+      _id: 0,
+      user_name: "$user.name",
+      movie_title: "$movie.title",
+      watch_time: 1
+    }
+  }
+])
+
+// 5. List each genre and number of times movies in that genre were watched.
+db.watch_history.aggregate([
+  {
+    $lookup: {
+      from: "movies",
+      localField: "movie_id",
+      foreignField: "movie_id",
+      as: "movie"
+    }
+  },
+  {
+    $group: {
+      _id: "$movie.genre",
+      watch_count: { $sum: 1 }
+    }
+  },
+  {
+    $project: {
+      _id: 0,
+      genre: "$_id",
+      watch_count: 1
+    }
+  },
+  {
+    $sort: { watch_count: -1 }
+  }
+])
+
+// 6. Display total watch time per user.
+db.watch_history.aggregate([
+  {
+    $group: {
+      _id: "$user_id",
+      total_watch_time: { $sum: "$watch_time" }
+    }
+  },
+  {
+    $lookup: {
+      from: "users",
+      localField: "_id",
+      foreignField: "user_id",
+      as: "user"
+    }
+  },
+  {
+    $project: {
+      _id: 0,
+      user_name: "$user.name",
+      total_watch_time: 1
+    }
+  },
+  {
+    $sort: { total_watch_time: -1 }
+  }
+])
+
+ // Advanced:
+ // 7. Find which movie has been watched the most (by count).
+db.watch_history.aggregate([
+  {
+    $group: {
+      _id: "$movie_id",
+      watch_count: { $sum: 1 }
+    }
+  },
+  { $sort: { watch_count: -1 } },
+  { $limit: 1 },
+  {
+    $lookup: {
+      from: "movies",
+      localField: "_id",
+      foreignField: "movie_id",
+      as: "movie"
+    }
+  },
+  { $unwind: "$movie" },
+  {
+    $project: {
+      _id: 0,
+      movie_title: "$movie.title",
+      watch_count: 1
+    }
+  }
+])
+
+ // 8. Identify users who have watched more than 2 movies.
+db.watch_history.aggregate([
+  {
+    $group: {
+      _id: { user_id: "$user_id", movie_id: "$movie_id" }
+    }
+  },
+  {
+    $group: {
+      _id: "$_id.user_id",
+      unique_movies_watched: { $sum: 1 }
+    }
+  },
+  { $match: { unique_movies_watched: { $gt: 2 } } },
+  {
+    $lookup: {
+      from: "users",
+      localField: "_id",
+      foreignField: "user_id",
+      as: "user"
+    }
+  },
+  { $unwind: "$user" },
+  {
+    $project: {
+      _id: 0,
+      user_name: "$user.name",
+      unique_movies_watched: 1
+    }
+  }
+])
+
+ // 9. Show users who watched the same movie more than once.
+db.watch_history.aggregate([
+  {
+    $group: {
+      _id: { user_id: "$user_id", movie_id: "$movie_id" },
+      watch_count: { $sum: 1 }
+    }
+  },
+  { $match: { watch_count: { $gt: 1 } } },
+  {
+    $lookup: {
+      from: "users",
+      localField: "_id.user_id",
+      foreignField: "user_id",
+      as: "user"
+    }
+  },
+  { $unwind: "$user" },
+  {
+    $lookup: {
+      from: "movies",
+      localField: "_id.movie_id",
+      foreignField: "movie_id",
+      as: "movie"
+    }
+  },
+  { $unwind: "$movie" },
+  {
+    $project: {
+      _id: 0,
+      user_name: "$user.name",
+      movie_title: "$movie.title",
+      watch_count: 1
+    }
+  }
+])
+
+ // 10. Calculate percentage of each movie watched compared to its full duration (watch_time/duration * 100 )
+db.watch_history.aggregate([
+  {
+    $lookup: {
+      from: "movies",
+      localField: "movie_id",
+      foreignField: "movie_id",
+      as: "movie"
+    }
+  },
+  { $unwind: "$movie" },
+  {
+    $project: {
+      _id: 0,
+      movie_title: "$movie.title",
+      user_id: 1,
+      watch_time: 1,
+      duration: "$movie.duration",
+      percentage_watched: {
+        $round: [
+          { $multiply: [{ $divide: ["$watch_time", "$movie.duration"] }, 100] },
+          2
+        ]
+      }
+    }
+  }
+])
