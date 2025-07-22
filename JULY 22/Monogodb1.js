@@ -1,33 +1,135 @@
 //Books table
 db.books.insertMany([
-  { book_id: 101, title: "The AI Revolution", author: "Ray Kurzweil", genre: "Technology", price: 799, stock: 20 },
-  { book_id: 102, title: "Deep Learning with Python", author: "Francois Chollet", genre: "Technology", price: 999, stock: 10 },
-  { book_id: 103, title: "Wings of Fire", author: "A.P.J. Abdul Kalam", genre: "Biography", price: 499, stock: 15 },
-  { book_id: 104, title: "Harry Potter", author: "J.K. Rowling", genre: "Fantasy", price: 650, stock: 25 },
-  { book_id: 105, title: "Percy Jackson", author: "Rick Riordan", genre: "Fantasy", price: 600, stock: 18 }
+  { 
+   book_id: 101, 
+   title: "The AI Revolution", 
+   author: "Ray Kurzweil", 
+   genre: "Technology", 
+   price: 799, 
+   stock: 20 
+  },
+  { 
+    book_id: 102,
+    title: "Deep Learning with Python",
+    author: "Francois Chollet",
+    genre: "Technology", 
+    price: 999, 
+    stock: 10 
+  },
+  { 
+    book_id: 103, 
+    title: "Wings of Fire", 
+    author: "A.P.J. Abdul Kalam", 
+    genre: "Biography", 
+    price: 499, 
+    stock: 15 
+  },
+  { 
+    book_id: 104, 
+    title: "Harry Potter", 
+    author: "J.K. Rowling", 
+    genre: "Fantasy", 
+    price: 650, 
+    stock: 25 },
+  { 
+    book_id: 105, 
+   title: "Percy Jackson", 
+   author: "Rick Riordan", 
+   genre: "Fantasy", 
+   price: 600, 
+   stock: 18 
+  }
 ])
 
 //customers table
-
 db.customers.insertMany([
-  { customer_id: 201, name: "Ahana", email: "ahana_tha@example.com", city: "Hyderabad" },
-  { customer_id: 202, name: "Nikitha", email: "nikitha.shh@example.com", city: "Hyderabad" },
-  { customer_id: 203, name: "Zara", email: "zara.gou@example.com", city: "Delhi" },
-  { customer_id: 204, name: "Varshi", email: "varshi_nv@example.com", city: "Chennai" },
-  { customer_id: 205, name: "Shifa", email: "shifa_na21@example.com", city: "Mumbai" }
+  {
+    customer_id: 201,
+    name: "Ahana",
+    email: "ahana_tha@example.com",
+    city: "Hyderabad"
+  },
+  {
+    customer_id: 202,
+    name: "Nikitha",
+    email: "nikitha.shh@example.com",
+    city: "Hyderabad"
+  },
+  {
+    customer_id: 203,
+    name: "Zara",
+    email: "zara.gou@example.com",
+    city: "Delhi"
+  },
+  {
+    customer_id: 204,
+    name: "Varshi",
+    email: "varshi_nv@example.com",
+    city: "Chennai"
+  },
+  {
+    customer_id: 205,
+    name: "Shifa",
+    email: "shifa_na21@example.com",
+    city: "Mumbai"
+  }
 ])
+
 
 //orders table
 
 db.orders.insertMany([
-  { order_id: 301, customer_id: 201, book_id: 101, order_date: ISODate("2024-01-10"), quantity: 1 },
-  { order_id: 302, customer_id: 202, book_id: 102, order_date: ISODate("2023-03-12"), quantity: 2 },
-  { order_id: 303, customer_id: 203, book_id: 103, order_date: ISODate("2022-07-20"), quantity: 1 },
-  { order_id: 304, customer_id: 204, book_id: 104, order_date: ISODate("2024-08-22"), quantity: 3 },
-  { order_id: 305, customer_id: 205, book_id: 105, order_date: ISODate("2022-01-05"), quantity: 2 },
-  { order_id: 306, customer_id: 201, book_id: 104, order_date: ISODate("2025-02-10"), quantity: 1 },
-  { order_id: 307, customer_id: 201, book_id: 105, order_date: ISODate("2025-03-15"), quantity: 2 }
+  {
+    order_id: 301,
+    customer_id: 201,
+    book_id: 101,
+    order_date: ISODate("2024-01-10"),
+    quantity: 1
+  },
+  {
+    order_id: 302,
+    customer_id: 202,
+    book_id: 102,
+    order_date: ISODate("2023-03-12"),
+    quantity: 2
+  },
+  {
+    order_id: 303,
+    customer_id: 203,
+    book_id: 103,
+    order_date: ISODate("2022-07-20"),
+    quantity: 1
+  },
+  {
+    order_id: 304,
+    customer_id: 204,
+    book_id: 104,
+    order_date: ISODate("2024-08-22"),
+    quantity: 3
+  },
+  {
+    order_id: 305,
+    customer_id: 205,
+    book_id: 105,
+    order_date: ISODate("2022-01-05"),
+    quantity: 2
+  },
+  {
+    order_id: 306,
+    customer_id: 201,
+    book_id: 104,
+    order_date: ISODate("2025-02-10"),
+    quantity: 1
+  },
+  {
+    order_id: 307,
+    customer_id: 201,
+    book_id: 105,
+    order_date: ISODate("2025-03-15"),
+    quantity: 2
+  }
 ])
+
 
 //PART 3 
 //BASIC QUERIES
