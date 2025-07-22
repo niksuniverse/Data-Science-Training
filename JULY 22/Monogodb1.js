@@ -1,5 +1,6 @@
+> use BookStoreDB
 //Books table
-db.books.insertMany([
+> db.books.insertMany([
   { 
    book_id: 101, 
    title: "The AI Revolution", 
@@ -42,7 +43,7 @@ db.books.insertMany([
 ])
 
 //customers table
-db.customers.insertMany([
+> db.customers.insertMany([
   {
     customer_id: 201,
     name: "Ahana",
@@ -134,18 +135,18 @@ db.orders.insertMany([
 //PART 3 
 //BASIC QUERIES
 // 1. List all books priced above 500
-db.books.find({price : {$gt : 500}})
+> db.books.find({price : {$gt : 500}})
 
 //  2. Show all customers from ‘Hyderabad’.
-db.customers.find({city : "Hyderabad"})
+> db.customers.find({city : "Hyderabad"})
 
 // 3. Find all orders placed after January 1, 2023.
-db.orders.find({ order_date: { $gt: ISODate("2023-01-01") } })
+> db.orders.find({ order_date: { $gt: ISODate("2023-01-01") } })
 
 //Joins via $lookup :
 //4. Display order details with customer name and book title.
 
-db.orders.aggregate([
+> db.orders.aggregate([
   {
     $lookup: {
       from: "customers",
@@ -173,7 +174,7 @@ db.orders.aggregate([
 ])
 
  //5. Show total quantity ordered for each book.
-db.orders.aggregate([
+> db.orders.aggregate([
     {
         $group: {
             _id :'$book_id',
@@ -198,7 +199,7 @@ db.orders.aggregate([
 
 //6. Show the total number of orders placed by each customer
 
-db.orders.aggregate([
+ > db.orders.aggregate([
   {
     $group: {
       _id: "$customer_id",
@@ -222,7 +223,7 @@ db.orders.aggregate([
 ])
 
 // 7. Calculate total revenue generated per book
-db.orders.aggregate([
+> db.orders.aggregate([
   {
     $lookup: {
       from: "books",
@@ -241,7 +242,7 @@ db.orders.aggregate([
 ]);
 
 // 8. Find the book with the highest total revenue
-db.orders.aggregate([
+> db.orders.aggregate([
   {
     $lookup: {
       from: "books",
@@ -262,7 +263,7 @@ db.orders.aggregate([
 ]);
 
 // 9. List genres and total books sold in each genre
-db.orders.aggregate([
+> db.orders.aggregate([
   {
     $lookup: {
       from: "books",
@@ -281,7 +282,7 @@ db.orders.aggregate([
 ]);
 
 // 10. Show customers who ordered more than 2 different books
-db.orders.aggregate([
+> db.orders.aggregate([
   {
     $group: {
       _id: { customer_id: "$customer_id", book_id: "$book_id" }
