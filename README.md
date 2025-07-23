@@ -1,68 +1,42 @@
-# DATA ENGINEERING TRAINING
-
-
-# 📊 Data Engineering Training Repository
+# DATA ENGINEERING COURSE
 
 Welcome to my Data Engineering Training repository!  
 This repo serves as a documentation and learning log of my daily progress in SQL, MongoDB, Python, and various data engineering tools and platforms.
 
----
-
-## 🗂️ Contents
-
-This repository contains my learnings, assessments, and hands-on project evaluations across the following areas:
 
 ---
 
-### 📌 1. SQL (Structured Query Language)
-- ✅ SQL Refresher & Advanced SQL Notes  
-- 💡 SQL Coding Assessment & Evaluation
+## 📂 Agenda
+
+### 1. SQL
+- SQL Refresher
+- Advanced SQL Concepts
+
+### 2. MongoDB
+- MongoDB Basics and Commands
+- Data Modeling and Aggregation
+
+### 3. Python for Data Engineering
+- Python Refresher
+- Advanced Python for Data Processing
+
+### 4. Apache Spark & PySpark
+- Spark Core Concepts
+- PySpark Transformations and Actions
+
+### 5. Azure Databricks
+- Notebooks and Delta Lake
+- Data Engineering Workflows
+
+### 6. Apache Airflow
+- DAGs and Scheduling
+- Workflow Orchestration
+
+### 7. Azure DevOps
+- Repos and Pipelines
+- CI/CD for Data Projects
 
 ---
-
-### 📌 2. MongoDB (NoSQL Database)
-- ✅ MongoDB Learning Resources  
-- 💡 MongoDB Coding Assessment & Evaluation
-
----
-
-### 📌 3. Python for Data Engineering
-- ✅ Python Refresher & Advanced Python Concepts  
-- 💡 Python Coding Assessment & Evaluation
-
----
-
-### 📌 4. Apache Spark & PySpark
-- ✅ Concepts and Examples using Spark & PySpark  
-- 💡 Spark and PySpark Coding Assessment & Evaluation
-
----
-
-### 📌 5. Azure Databricks
-- ✅ Data Engineering on Azure Databricks  
-- 💡 Azure Databricks Coding Assessment & Evaluation
-
----
-
-### 📌 6. Apache Airflow
-- ✅ DAGs, Scheduling, and Automation  
-- 💡 Apache Airflow Coding Assessment & Evaluation
-
----
-
-### 📌 7. Azure DevOps
-- ✅ CI/CD for Data Engineering Pipelines  
-- 💡 Azure DevOps Coding Assessment & Evaluation  
-- 🚀 Project 1 & Project 2 - End-to-End Data Engineering Use Cases
-
----
-
-## 📸 Daily Visual Logs
-
-Check out the `/images` folder for visual screenshots, diagrams, and daily learning updates.
-
----
-
 ## 🙌 Let's Connect
 
 Feel free to explore, learn, or fork this repo.  
