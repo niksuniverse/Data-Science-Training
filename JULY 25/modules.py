@@ -18,3 +18,10 @@ print("Today date is: ",today)
 
 now =d.datetime.now()
 print("Current time is: ",now.strftime("%H:%M:%S"))
+
+#User defined modules
+import myModule as m
+
+print(m.add(5, 7))
+print(m.is_even(10))
+print(m.is_palindrome("Madam"))
