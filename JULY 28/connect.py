@@ -3,7 +3,7 @@ import mysql.connector
 conn = mysql.connector.connect(
     host='localhost',
     user='root',
-    password='Nikitha@2003',
+    password='password',
     database='simple_Sql'
 )
 print(" Connected to the database!")
