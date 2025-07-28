@@ -62,3 +62,16 @@ savings.apply_interest()
 
 savings.deposit(1000)
 savings.withdraw(500)
+
+
+'''
+OUTPUT:
+
+Deposited ₹500. New balance: 1500
+Withdrew ₹1200. Remaining balance: 300
+final balance for Nikitha: ₹300
+Applied 5% interest: 100.00
+New balance after interest: 2100.00
+Deposited ₹1000. New balance: 3100.0
+Withdrew ₹500. Remaining balance: 2600.0
+'''
