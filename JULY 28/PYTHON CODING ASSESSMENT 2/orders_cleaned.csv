@@ -1,0 +1,6 @@
+OrderID,CustomerName,Item,Quantity,Price,TotalAmount
+101,Aarav,Notebook,2.0,50.0,100.0
+102,Sanya,Pen,5.0,20.0,100.0
+103,Rohan,,3.0,25.0,75.0
+104,Unknown,Marker,4.0,0.0,0.0
+105,Meera,Eraser,0.0,10.0,0.0
