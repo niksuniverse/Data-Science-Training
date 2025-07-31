@@ -1,0 +1,4 @@
+,OrderID,OrderDate,Customer,Segment,Region,Product,Category,SubCategory,Quantity,UnitPrice,Discount,Profit
+1,CA-1002,20-02-2023,Priya,Corporate,North,Printer,Technology,Peripherals,2,12000,0.15,1800
+2,CA-1003,25-01-2023,Amit,Consumer,East,Notebook,Office Supplies,Paper,3,200,0.05,150
+4,CA-1005,05-02-2023,Divya,Consumer,South,Phone,Technology,Phones,2,20000,0.0,3000
