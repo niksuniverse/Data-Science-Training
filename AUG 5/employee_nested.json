@@ -1,0 +1,11 @@
+[
+{
+"id": 101,
+"name": "Sneha",
+"address": {
+"city": "Mumbai",
+"pincode": 400001
+},
+"skills": ["Python", "Spark"]
+}
+]
