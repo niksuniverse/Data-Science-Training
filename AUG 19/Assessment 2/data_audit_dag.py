@@ -1,4 +1,3 @@
-# File name: data_audit_dag.py
 
 from airflow import DAG
 from airflow.operators.python import PythonOperator
@@ -104,3 +103,4 @@ with DAG(
 
     # Task Dependency Chain
     pull_data_task >> audit_validation_task >> log_results_task >> final_status_task
+
