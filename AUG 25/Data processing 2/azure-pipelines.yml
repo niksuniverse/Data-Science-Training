@@ -1,0 +1,37 @@
+trigger:
+- main
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+  AZURE_STORAGE_ACCOUNT_NAME: $(AZURE_STORAGE_ACCOUNT_NAME)
+  AZURE_STORAGE_ACCOUNT_KEY: $(AZURE_STORAGE_ACCOUNT_KEY)
+  AZURE_CONTAINER_NAME: $(AZURE_CONTAINER_NAME)
+
+steps:
+- task: UsePythonVersion@0
+  inputs:
+    versionSpec: '3.x'
+    addToPath: true
+
+- script: |
+    python -m pip install --upgrade pip
+    pip install -r requirements.txt
+  displayName: 'Install dependencies'
+
+- script: |
+    python sales_data_pipeline.py
+  displayName: 'Run data processing pipeline'
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: 'raw_sales_data.csv'
+    ArtifactName: 'RawData'
+    publishLocation: 'Container'
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: 'processed_sales_data.csv'
+    ArtifactName: 'ProcessedData'
+    publishLocation: 'Container'
