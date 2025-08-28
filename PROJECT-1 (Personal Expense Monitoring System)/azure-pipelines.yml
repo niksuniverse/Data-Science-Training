@@ -1,0 +1,36 @@
+trigger: none   # no trigger on commit, only scheduled
+
+schedules:
+  - cron: "0 0 * * 0"   # every Sunday at midnight UTC (weekly). 
+    displayName: "Weekly Expense Analysis"
+    branches:
+      include:
+        - main
+    always: true
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+  threshold: 5000   # savings alert threshold
+
+steps:
+  - task: UsePythonVersion@0
+    inputs:
+      versionSpec: '3.x'
+      addToPath: true
+
+  - script: |
+      pip install pandas pyodbc sqlalchemy
+    displayName: "Install dependencies"
+
+  - script: |
+      echo "Running expense analysis..."
+      python expense_analysis.py --threshold $(threshold)
+    displayName: "Run Expense Analysis Script"
+
+  - task: PublishBuildArtifacts@1
+    inputs:
+      PathtoPublish: "$(Build.SourcesDirectory)/output"
+      ArtifactName: "ExpenseReports"
+      publishLocation: "Container"
