@@ -1,0 +1,59 @@
+
+
+trigger: none  # manual or schedule only
+
+schedules:
+  - cron: "0 3 * * 1"          # Every Monday 03:00 UTC (adjust as needed)
+    displayName: Weekly Run
+    branches:
+      include: [ main ]
+    always: true
+
+pool:
+  vmImage: "ubuntu-latest"
+
+variables:
+  PY_VERSION: "3.10"
+  INPUT_PATH: "data/energyusage.csv"      # update if pulling from storage
+  OUT_DIR: "out"
+  THRESHOLD_KWH: "10"                     # >10 kWh per device per day triggers alerts
+
+steps:
+  - checkout: self
+
+  # (Optional) If you need to fetch fresh data from somewhere, add a step here
+  # e.g., curl/wget/azcopy to overwrite $(INPUT_PATH)
+
+  - task: UsePythonVersion@0
+    inputs:
+      versionSpec: "$(PY_VERSION)"
+
+  - script: |
+      python -m pip install --upgrade pip
+      pip install pandas numpy
+    displayName: "Install Python deps"
+
+  - script: |
+      mkdir -p $(OUT_DIR)
+      python scripts/generate_reports.py \
+        --input "$(INPUT_PATH)" \
+        --out "$(OUT_DIR)" \
+        --threshold "$(THRESHOLD_KWH)" \
+        2>&1 | tee "$(OUT_DIR)/execution_log.txt"
+    displayName: "Run report generator"
+
+  # Surface alerts in the pipeline log & mark the run as partially problematic (but continue)
+  - script: |
+      if [ -s "$(OUT_DIR)/alerts.csv" ]; then
+        echo "##vso[task.logissue type=warning]Energy threshold exceeded for some devices/days. See alerts.csv"
+      else
+        echo "No alerts generated."
+      fi
+    displayName: "Emit alerts to pipeline log"
+
+  - task: PublishBuildArtifacts@1
+    inputs:
+      pathToPublish: "$(OUT_DIR)"
+      artifactName: "energy_reports"
+      publishLocation: "Container"
+    displayName: "Publish CSV reports & execution log"
