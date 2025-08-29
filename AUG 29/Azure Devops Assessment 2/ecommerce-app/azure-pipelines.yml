@@ -1,0 +1,13 @@
+trigger:
+- main
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+- task: UsePythonVersion@0
+  inputs:
+    versionSpec: '3.x'
+
+- script: python src/app.py
+  displayName: 'Run E-Commerce Application Placeholder'
